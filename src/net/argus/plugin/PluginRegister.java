@@ -3,6 +3,7 @@ package net.argus.plugin;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.argus.instance.Instance;
 import net.argus.plugin.annotation.PluginInfo;
 import net.argus.util.debug.Debug;
 
@@ -16,26 +17,44 @@ public class PluginRegister {
 	public PluginRegister(Plugin plugin, PluginInfo info) {
 		this.plugin = plugin;
 		this.info = info;
+		
+		plugin.setInstance(new Instance("plugin/" + info.pluginId()));
 	}
 	
 	public Plugin getPlugin() {return plugin;}
 	public PluginInfo getInfo() {return info;}
+	public Instance getInstance() {return plugin.getInstance();}
 	
 	
 	/**--STATIC--**/
 	public static void preInit(PluginEvent e) {
-		for(PluginRegister plug : plugins)
+		for(PluginRegister plug : plugins) {
+			Instance instance = Instance.currentInstance();
+			
+			Instance.setThreadInstance(plug.getInstance());
 			plug.getPlugin().preInit(e);
+			Instance.setThreadInstance(instance);
+		}
 	}
 	
 	public static void init(PluginEvent e) {
-		for(PluginRegister plug : plugins)
+		for(PluginRegister plug : plugins) {
+			Instance instance = Instance.currentInstance();
+						
+			Instance.setThreadInstance(plug.getInstance());
 			plug.getPlugin().init(e);
+			Instance.setThreadInstance(instance);
+		}
 	}
 	
 	public static void postInit(PluginEvent e) {
-		for(PluginRegister plug : plugins)
+		for(PluginRegister plug : plugins) {
+			Instance instance = Instance.currentInstance();
+						
+			Instance.setThreadInstance(plug.getInstance());
 			plug.getPlugin().postInit(e);
+			Instance.setThreadInstance(instance);
+		}
 	}
 	
 	public static void addPlugin(Plugin plugin, PluginInfo info) throws PluginException {
