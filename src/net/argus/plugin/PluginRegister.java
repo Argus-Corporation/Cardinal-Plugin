@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.argus.instance.Instance;
 import net.argus.plugin.annotation.PluginInfo;
+import net.argus.util.Version;
 import net.argus.util.debug.Debug;
 
 public class PluginRegister {
@@ -18,12 +19,14 @@ public class PluginRegister {
 		this.plugin = plugin;
 		this.info = info;
 		
-		plugin.setInstance(new Instance("plugin/" + info.pluginId()));
+		plugin.setInstance(new Instance("plugin/" + info.pluginId()).setRootFolder(""));
 	}
 	
 	public Plugin getPlugin() {return plugin;}
 	public PluginInfo getInfo() {return info;}
 	public Instance getInstance() {return plugin.getInstance();}
+	
+	public Version getVersion() {return new Version(info.version());}
 	
 	
 	/**--STATIC--**/
@@ -87,6 +90,8 @@ public class PluginRegister {
 	
 	public static Plugin getPlugin(int index) {return plugins.get(index).getPlugin();}
 	public static PluginInfo getInfo(int index) {return plugins.get(index).getInfo();}
+	
+	public static Version getVersion(int index) {return plugins.get(index).getVersion();}
 	
 	public static List<Plugin> getPlugins() {
 		List<Plugin> plugs = new ArrayList<Plugin>();

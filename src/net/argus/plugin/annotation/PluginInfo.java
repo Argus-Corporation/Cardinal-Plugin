@@ -9,4 +9,9 @@ public @interface PluginInfo {
 	public String pluginId();
 	public String version();
 	
+	public String name(); 
+	public String[] authors();
+	
+	public String description();
+	
 }
