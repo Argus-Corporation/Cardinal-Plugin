@@ -104,6 +104,10 @@ public class PluginRegister {
 	
 	public static Version getVersion(int index) {return plugins.get(index).getVersion();}
 	
+	public static PluginInfo getInfo(Plugin plug) {return plugins.get(getPlugins().indexOf(plug)).getInfo();}
+	
+	public static Version getVersion(Plugin plug) {return plugins.get(getPlugins().indexOf(plug)).getVersion();}
+	
 	public static List<Plugin> getPlugins() {
 		List<Plugin> plugs = new ArrayList<Plugin>();
 		
