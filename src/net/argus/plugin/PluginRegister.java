@@ -67,6 +67,10 @@ public class PluginRegister {
 			throw new PluginException();
 	}
 	
+	protected synchronized static void removePlugin(int index) {
+		plugins.remove(index);
+	}
+	
 	private static boolean isPluginValid(PluginInfo info) {
 		boolean valid = true;
 		if(info != null) {
@@ -84,6 +88,13 @@ public class PluginRegister {
 		return valid;
 	}
 	
+	public static boolean isExist(String pluginId) {
+		for(PluginRegister plug : plugins)
+			if(plug.info.pluginId().equals(pluginId))
+				return true;
+		return false;
+	}
+	
 	
 	/**--GETTERS--**/
 	public static int length() {return plugins.size();}
@@ -92,6 +103,10 @@ public class PluginRegister {
 	public static PluginInfo getInfo(int index) {return plugins.get(index).getInfo();}
 	
 	public static Version getVersion(int index) {return plugins.get(index).getVersion();}
+	
+	public static PluginInfo getInfo(Plugin plug) {return plugins.get(getPlugins().indexOf(plug)).getInfo();}
+	
+	public static Version getVersion(Plugin plug) {return plugins.get(getPlugins().indexOf(plug)).getVersion();}
 	
 	public static List<Plugin> getPlugins() {
 		List<Plugin> plugs = new ArrayList<Plugin>();
