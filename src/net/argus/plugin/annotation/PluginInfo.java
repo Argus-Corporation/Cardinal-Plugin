@@ -8,6 +8,7 @@ public @interface PluginInfo {
 	
 	public String pluginId();
 	public String version();
+	public String[] pluginRequested();
 	
 	public String name(); 
 	public String[] authors();

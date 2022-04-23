@@ -67,6 +67,10 @@ public class PluginRegister {
 			throw new PluginException();
 	}
 	
+	protected synchronized static void removePlugin(int index) {
+		plugins.remove(index);
+	}
+	
 	private static boolean isPluginValid(PluginInfo info) {
 		boolean valid = true;
 		if(info != null) {
@@ -82,6 +86,13 @@ public class PluginRegister {
 		}
 		
 		return valid;
+	}
+	
+	public static boolean isExist(String pluginId) {
+		for(PluginRegister plug : plugins)
+			if(plug.info.pluginId().equals(pluginId))
+				return true;
+		return false;
 	}
 	
 	

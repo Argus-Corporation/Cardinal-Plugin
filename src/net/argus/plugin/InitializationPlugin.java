@@ -20,7 +20,23 @@ public class InitializationPlugin {
 			for(String mainClass : mainClasses)
 				register(mainClass);
 			
+			checkPlugin();
+			
 			createFile();
+		}
+	}
+	
+	private static void checkPlugin() {
+		List<PluginInfo> infos = PluginRegister.getInfos();
+		
+  loop:	 for(PluginInfo info : infos) {
+			String[] requesteds = info.pluginRequested();
+			for(String requested : requesteds)
+				if(requested != null && !requested.equals("") && !PluginRegister.isExist(requested)) {
+					PluginRegister.removePlugin(infos.indexOf(info));
+					Debug.log("Plugin \"" + info.pluginId() + "\" was deleted because plugin \"" + requested + "\" was not registered", Info.ERROR);
+					continue loop;
+				}
 		}
 	}
 	
