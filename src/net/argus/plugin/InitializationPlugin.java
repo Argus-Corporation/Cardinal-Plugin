@@ -45,6 +45,7 @@ public class InitializationPlugin {
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	public static void register(String classPath) {
 		try {
 			Class<?> cl = InitializationPlugin.class.getClassLoader().loadClass(classPath);
